@@ -1,0 +1,26 @@
+
+syntax="proto3"; 
+
+service PokedexService 
+{
+    rpc GetPokemon (GetPokemon_Request) returns (GetPokemon_Response);
+}
+
+
+message GetPokemon_Request 
+{
+    uint32 number = 1;
+}
+
+
+message PokemonDescription
+{
+    uint32 number = 1;
+    string name = 2;
+    repeated uint32 evolutions = 3;
+}
+
+message GetPokemon_Response 
+{
+    repeated PokemonDescription descriptions = 1;
+}

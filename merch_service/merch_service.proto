@@ -1,0 +1,33 @@
+
+syntax="proto3"; 
+
+service MerchService 
+{
+    rpc GetShirts (GetShirts_Request) returns (GetShirts_Response);
+    rpc GetRelatedShirts (GetRelatedShirts_Request) returns (GetRelatedShirts_Response);
+}
+
+
+message ShirtDescription 
+{
+    uint32 id = 1;
+    string name = 2;
+}
+
+
+message GetShirts_Request {}
+
+message GetShirts_Response 
+{ 
+    repeated ShirtDescription shirts = 1;
+}
+
+message GetRelatedShirts_Request
+{
+    uint32 id = 1;
+}
+
+message GetRelatedShirts_Response 
+{ 
+    repeated ShirtDescription shirts = 1;
+}

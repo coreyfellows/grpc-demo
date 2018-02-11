@@ -1,0 +1,39 @@
+
+syntax="proto3"; 
+
+service DiscoveryService 
+{
+    rpc Register (Register_Request) returns (Register_Response);
+    rpc GetServices (GetServices_Request) returns (GetServices_Response);
+}
+
+
+message GetServices_Request
+{
+    
+}
+
+
+message ServiceDefinition
+{
+    string name = 1;
+    repeated string address = 2;
+    repeated uint32 port = 3;
+}
+
+message GetServices_Response
+{
+    repeated ServiceDefinition services = 1;
+}
+
+message Register_Request 
+{
+    string address = 1;
+    uint32 port = 2;
+    repeated string service_name = 3;
+}
+
+message Register_Response 
+{
+
+}

@@ -1,0 +1,7 @@
+
+syntax="proto3"; 
+
+service %SERVICE_NAME_CAMEL_CASE% 
+{
+    
+}

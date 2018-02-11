@@ -10,6 +10,7 @@ class PokedexService(PokedexServiceServicer):
     def GetPokemon(self, request, context):
         ret = GetPokemon_Response()
         pokemon = POKEDEX
+
         if request.number:
             try:
                 pokemon = [next(filter(lambda p: p['id'] == request.number, pokemon))]

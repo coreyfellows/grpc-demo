@@ -38,14 +38,14 @@ _SHIRTDESCRIPTION = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='name', full_name='ShirtDescription.name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -100,7 +100,7 @@ _GETSHIRTS_RESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -131,7 +131,7 @@ _GETRELATEDSHIRTS_REQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -162,7 +162,7 @@ _GETRELATEDSHIRTS_RESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -224,155 +224,37 @@ GetRelatedShirts_Response = _reflection.GeneratedProtocolMessageType('GetRelated
 _sym_db.RegisterMessage(GetRelatedShirts_Response)
 
 
-try:
-  # THESE ELEMENTS WILL BE DEPRECATED.
-  # Please use the generated *_pb2_grpc.py files instead.
-  import grpc
-  from grpc.beta import implementations as beta_implementations
-  from grpc.beta import interfaces as beta_interfaces
-  from grpc.framework.common import cardinality
-  from grpc.framework.interfaces.face import utilities as face_utilities
 
+_MERCHSERVICE = _descriptor.ServiceDescriptor(
+  name='MerchService',
+  full_name='MerchService',
+  file=DESCRIPTOR,
+  index=0,
+  options=None,
+  serialized_start=252,
+  serialized_end=395,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='GetShirts',
+    full_name='MerchService.GetShirts',
+    index=0,
+    containing_service=None,
+    input_type=_GETSHIRTS_REQUEST,
+    output_type=_GETSHIRTS_RESPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetRelatedShirts',
+    full_name='MerchService.GetRelatedShirts',
+    index=1,
+    containing_service=None,
+    input_type=_GETRELATEDSHIRTS_REQUEST,
+    output_type=_GETRELATEDSHIRTS_RESPONSE,
+    options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_MERCHSERVICE)
 
-  class MerchServiceStub(object):
-    # missing associated documentation comment in .proto file
-    pass
+DESCRIPTOR.services_by_name['MerchService'] = _MERCHSERVICE
 
-    def __init__(self, channel):
-      """Constructor.
-
-      Args:
-        channel: A grpc.Channel.
-      """
-      self.GetShirts = channel.unary_unary(
-          '/MerchService/GetShirts',
-          request_serializer=GetShirts_Request.SerializeToString,
-          response_deserializer=GetShirts_Response.FromString,
-          )
-      self.GetRelatedShirts = channel.unary_unary(
-          '/MerchService/GetRelatedShirts',
-          request_serializer=GetRelatedShirts_Request.SerializeToString,
-          response_deserializer=GetRelatedShirts_Response.FromString,
-          )
-
-
-  class MerchServiceServicer(object):
-    # missing associated documentation comment in .proto file
-    pass
-
-    def GetShirts(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def GetRelatedShirts(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-
-  def add_MerchServiceServicer_to_server(servicer, server):
-    rpc_method_handlers = {
-        'GetShirts': grpc.unary_unary_rpc_method_handler(
-            servicer.GetShirts,
-            request_deserializer=GetShirts_Request.FromString,
-            response_serializer=GetShirts_Response.SerializeToString,
-        ),
-        'GetRelatedShirts': grpc.unary_unary_rpc_method_handler(
-            servicer.GetRelatedShirts,
-            request_deserializer=GetRelatedShirts_Request.FromString,
-            response_serializer=GetRelatedShirts_Response.SerializeToString,
-        ),
-    }
-    generic_handler = grpc.method_handlers_generic_handler(
-        'MerchService', rpc_method_handlers)
-    server.add_generic_rpc_handlers((generic_handler,))
-
-
-  class BetaMerchServiceServicer(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def GetShirts(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def GetRelatedShirts(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-
-
-  class BetaMerchServiceStub(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def GetShirts(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    GetShirts.future = None
-    def GetRelatedShirts(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    GetRelatedShirts.future = None
-
-
-  def beta_create_MerchService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_deserializers = {
-      ('MerchService', 'GetRelatedShirts'): GetRelatedShirts_Request.FromString,
-      ('MerchService', 'GetShirts'): GetShirts_Request.FromString,
-    }
-    response_serializers = {
-      ('MerchService', 'GetRelatedShirts'): GetRelatedShirts_Response.SerializeToString,
-      ('MerchService', 'GetShirts'): GetShirts_Response.SerializeToString,
-    }
-    method_implementations = {
-      ('MerchService', 'GetRelatedShirts'): face_utilities.unary_unary_inline(servicer.GetRelatedShirts),
-      ('MerchService', 'GetShirts'): face_utilities.unary_unary_inline(servicer.GetShirts),
-    }
-    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-    return beta_implementations.server(method_implementations, options=server_options)
-
-
-  def beta_create_MerchService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_serializers = {
-      ('MerchService', 'GetRelatedShirts'): GetRelatedShirts_Request.SerializeToString,
-      ('MerchService', 'GetShirts'): GetShirts_Request.SerializeToString,
-    }
-    response_deserializers = {
-      ('MerchService', 'GetRelatedShirts'): GetRelatedShirts_Response.FromString,
-      ('MerchService', 'GetShirts'): GetShirts_Response.FromString,
-    }
-    cardinalities = {
-      'GetRelatedShirts': cardinality.Cardinality.UNARY_UNARY,
-      'GetShirts': cardinality.Cardinality.UNARY_UNARY,
-    }
-    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'MerchService', cardinalities, options=stub_options)
-except ImportError:
-  pass
 # @@protoc_insertion_point(module_scope)

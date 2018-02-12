@@ -62,21 +62,21 @@ _SERVICEDEFINITION = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='address', full_name='ServiceDefinition.address', index=1,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='port', full_name='ServiceDefinition.port', index=2,
       number=3, type=13, cpp_type=3, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -107,7 +107,7 @@ _GETSERVICES_RESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -138,21 +138,21 @@ _REGISTER_REQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='port', full_name='Register_Request.port', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='service_name', full_name='Register_Request.service_name', index=2,
       number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -237,155 +237,37 @@ Register_Response = _reflection.GeneratedProtocolMessageType('Register_Response'
 _sym_db.RegisterMessage(Register_Response)
 
 
-try:
-  # THESE ELEMENTS WILL BE DEPRECATED.
-  # Please use the generated *_pb2_grpc.py files instead.
-  import grpc
-  from grpc.beta import implementations as beta_implementations
-  from grpc.beta import interfaces as beta_interfaces
-  from grpc.framework.common import cardinality
-  from grpc.framework.interfaces.face import utilities as face_utilities
 
+_DISCOVERYSERVICE = _descriptor.ServiceDescriptor(
+  name='DiscoveryService',
+  full_name='DiscoveryService',
+  file=DESCRIPTOR,
+  index=0,
+  options=None,
+  serialized_start=273,
+  serialized_end=402,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='Register',
+    full_name='DiscoveryService.Register',
+    index=0,
+    containing_service=None,
+    input_type=_REGISTER_REQUEST,
+    output_type=_REGISTER_RESPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetServices',
+    full_name='DiscoveryService.GetServices',
+    index=1,
+    containing_service=None,
+    input_type=_GETSERVICES_REQUEST,
+    output_type=_GETSERVICES_RESPONSE,
+    options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_DISCOVERYSERVICE)
 
-  class DiscoveryServiceStub(object):
-    # missing associated documentation comment in .proto file
-    pass
+DESCRIPTOR.services_by_name['DiscoveryService'] = _DISCOVERYSERVICE
 
-    def __init__(self, channel):
-      """Constructor.
-
-      Args:
-        channel: A grpc.Channel.
-      """
-      self.Register = channel.unary_unary(
-          '/DiscoveryService/Register',
-          request_serializer=Register_Request.SerializeToString,
-          response_deserializer=Register_Response.FromString,
-          )
-      self.GetServices = channel.unary_unary(
-          '/DiscoveryService/GetServices',
-          request_serializer=GetServices_Request.SerializeToString,
-          response_deserializer=GetServices_Response.FromString,
-          )
-
-
-  class DiscoveryServiceServicer(object):
-    # missing associated documentation comment in .proto file
-    pass
-
-    def Register(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def GetServices(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-
-  def add_DiscoveryServiceServicer_to_server(servicer, server):
-    rpc_method_handlers = {
-        'Register': grpc.unary_unary_rpc_method_handler(
-            servicer.Register,
-            request_deserializer=Register_Request.FromString,
-            response_serializer=Register_Response.SerializeToString,
-        ),
-        'GetServices': grpc.unary_unary_rpc_method_handler(
-            servicer.GetServices,
-            request_deserializer=GetServices_Request.FromString,
-            response_serializer=GetServices_Response.SerializeToString,
-        ),
-    }
-    generic_handler = grpc.method_handlers_generic_handler(
-        'DiscoveryService', rpc_method_handlers)
-    server.add_generic_rpc_handlers((generic_handler,))
-
-
-  class BetaDiscoveryServiceServicer(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Register(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def GetServices(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-
-
-  class BetaDiscoveryServiceStub(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Register(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Register.future = None
-    def GetServices(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    GetServices.future = None
-
-
-  def beta_create_DiscoveryService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_deserializers = {
-      ('DiscoveryService', 'GetServices'): GetServices_Request.FromString,
-      ('DiscoveryService', 'Register'): Register_Request.FromString,
-    }
-    response_serializers = {
-      ('DiscoveryService', 'GetServices'): GetServices_Response.SerializeToString,
-      ('DiscoveryService', 'Register'): Register_Response.SerializeToString,
-    }
-    method_implementations = {
-      ('DiscoveryService', 'GetServices'): face_utilities.unary_unary_inline(servicer.GetServices),
-      ('DiscoveryService', 'Register'): face_utilities.unary_unary_inline(servicer.Register),
-    }
-    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-    return beta_implementations.server(method_implementations, options=server_options)
-
-
-  def beta_create_DiscoveryService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_serializers = {
-      ('DiscoveryService', 'GetServices'): GetServices_Request.SerializeToString,
-      ('DiscoveryService', 'Register'): Register_Request.SerializeToString,
-    }
-    response_deserializers = {
-      ('DiscoveryService', 'GetServices'): GetServices_Response.FromString,
-      ('DiscoveryService', 'Register'): Register_Response.FromString,
-    }
-    cardinalities = {
-      'GetServices': cardinality.Cardinality.UNARY_UNARY,
-      'Register': cardinality.Cardinality.UNARY_UNARY,
-    }
-    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'DiscoveryService', cardinalities, options=stub_options)
-except ImportError:
-  pass
 # @@protoc_insertion_point(module_scope)

@@ -10,10 +10,9 @@ if __name__ == '__main__':
 
     service_name = args.service_name + "_service"
     ServiceName = ''.join(map(str.capitalize, service_name.split("_")))
-    
+
     shutil.copytree('service_template', service_name)
     os.chdir(service_name)
-    os.mkdir('grpc_gen')
     for filename in os.listdir('.'):
         if not os.path.isfile(filename):
             continue
@@ -27,6 +26,6 @@ if __name__ == '__main__':
         if new_filename == filename:
             continue
         os.rename(filename, new_filename)
-    
+
 
 

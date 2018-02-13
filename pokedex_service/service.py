@@ -5,7 +5,7 @@ def start_up():
     pass
 
 
-    
+
 class PokedexService(PokedexServiceServicer):
     def GetPokemon(self, request, context):
         ret = GetPokemon_Response()
@@ -17,7 +17,7 @@ class PokedexService(PokedexServiceServicer):
             except:
                 raise Exception(f"Pokemon {request.number} not found")
 
-        for pkmn in pokemon:            
+        for pkmn in pokemon:
             description = ret.descriptions.add()
             description.number = pkmn['id']
             description.name = pkmn['name']

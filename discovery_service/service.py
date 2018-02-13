@@ -17,7 +17,7 @@ def get_registry():
         return json.load(f)
 
 class DiscoveryService(DiscoveryServiceServicer):
-    def Register(self, request, context):        
+    def Register(self, request, context):
         services = get_registry()
         for name in request.service_name:
             if name not in services:
@@ -32,10 +32,9 @@ class DiscoveryService(DiscoveryServiceServicer):
         services = get_registry()
 
         for service, servicers in services.items():
-            definition = response.services.add()           
+            definition = response.services.add()
             definition.name = service
-            for address, port in servicers:                
+            for address, port in servicers:
                 definition.address.append(address)
                 definition.port.append(port)
         return response
-        

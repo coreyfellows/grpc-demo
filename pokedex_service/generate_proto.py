@@ -3,7 +3,7 @@ import os
 service_name = 'pokedex_service'
 
 try:
-    os.mkdir(f'grpc_gen')
+    os.mkdir('grpc_gen')
 except:
     pass
 protoc.main(('', '-I.', '--python_out=./grpc_gen', '--grpc_python_out=./grpc_gen', f'./{service_name}.proto'))
@@ -36,6 +36,7 @@ messages = {}
 serializers = {}
 
 app_name = "pokedex_service"
+AppName = "PokedexService"
 
 class dummy_channel(object):
     def unary_unary(self, name, request_serializer, response_deserializer):
@@ -54,7 +55,7 @@ def generate(cg):
 
     #cg('from service_host.base_client import get_stub')
     cg(f'from .{app_name}_pb2 import {", ".join(messages.keys())}')
-    cg("from ..base_client import DiscoveryClient")
+    cg("from ..base_client import DiscoveryClient, MockService")
 
 
     for name, item in rpc_module.__dict__.items():
@@ -66,8 +67,9 @@ def generate(cg):
         cg()
         cg()
         with cg.clss(name.replace('Stub', ''), base=('DiscoveryClient',)):
-            with cg.method('__init__', ['ip_address', 'port'], ['None']*2):
-                cg('self.ip_address, self.port = ip_address, port')
+            with cg.method('__init__', ['ip_address', 'port', 'mock'], ['None','None', 'False']):
+                cg('self.ip_address, self.port, self.mock = ip_address, port, mock')
+                cg(f"self._mock_service = {AppName}_mock()")
             for attr_name, attr in stub.__dict__.items():
                 if not hasattr(attr, 'DESCRIPTOR'):
                     continue
@@ -86,3 +88,6 @@ def generate(cg):
 with open(f'../clients/{app_name}/__init__.py', 'w') as f:
     cg = CodeGenerator(lambda l: f.write(f'{l}\n'))
     generate(cg)
+    with open('service_mock.py') as mock:
+        service_mock = mock.read().replace(".grpc_gen", "").replace("object", "MockService")
+        f.write(service_mock)

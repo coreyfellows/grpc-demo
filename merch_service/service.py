@@ -4,7 +4,7 @@ from clients.pokedex_service import PokedexService
 
 def start_up():
     pass
-    
+
 class MerchService(MerchServiceServicer):
     def GetShirts(self, request, context):
         ret = GetShirts_Response()
@@ -47,5 +47,5 @@ SHIRTS = {
     5: {
         'name': 'Raichu Shirt',
         'associated_pkmn': 26
-    }    
+    }
 }

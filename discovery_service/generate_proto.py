@@ -1,6 +1,7 @@
 from grpc_tools import protoc
 import os
 service_name = 'discovery_service'
+
 try:
     os.mkdir('grpc_gen')
 except:
@@ -25,6 +26,7 @@ for path in (os.path.join('grpc_gen') , os.path.join('..', 'clients', service_na
             else:
                 f.write(line)
 
+
 import grpc_gen.discovery_service_pb2 as data_module
 import grpc_gen.discovery_service_pb2_grpc as rpc_module
 from util import CodeGenerator
@@ -34,6 +36,7 @@ messages = {}
 serializers = {}
 
 app_name = "discovery_service"
+AppName = "DiscoveryService"
 
 class dummy_channel(object):
     def unary_unary(self, name, request_serializer, response_deserializer):
@@ -52,7 +55,7 @@ def generate(cg):
 
     #cg('from service_host.base_client import get_stub')
     cg(f'from .{app_name}_pb2 import {", ".join(messages.keys())}')
-    cg("from ..base_client import BaseClient")
+    cg("from ..base_client import BaseClient, MockService")
 
 
     for name, item in rpc_module.__dict__.items():
@@ -64,8 +67,9 @@ def generate(cg):
         cg()
         cg()
         with cg.clss(name.replace('Stub', ''), base=('BaseClient',)):
-            with cg.method('__init__', ['ip_address', 'port'], ['None']*2):
-                cg('self.ip_address, self.port = ip_address, port')
+            with cg.method('__init__', ['ip_address', 'port', 'mock'], ['None','None', 'False']):
+                cg('self.ip_address, self.port, self.mock = ip_address, port, mock')
+                cg(f"self._mock_service = {AppName}_mock()")
             for attr_name, attr in stub.__dict__.items():
                 if not hasattr(attr, 'DESCRIPTOR'):
                     continue
@@ -84,3 +88,6 @@ def generate(cg):
 with open(f'../clients/{app_name}/__init__.py', 'w') as f:
     cg = CodeGenerator(lambda l: f.write(f'{l}\n'))
     generate(cg)
+    with open('service_mock.py') as mock:
+        service_mock = mock.read().replace(".grpc_gen", "").replace("object", "MockService")
+        f.write(service_mock)

@@ -1,10 +1,14 @@
 import grpc
 import random
 from collections import defaultdict
+import types
 
 class BaseClient(object):
 
     def get_stub(self, service_name, method, request, stub_type):
+        if self.mock:
+            return self._mock_service
+
         channel = None
         if hasattr(self, "channel"):
             channel = self.channel
@@ -42,3 +46,38 @@ class DiscoveryClient(BaseClient):
         host = f'{addr}:{port}'
         self.channel = channel = grpc.insecure_channel(host)
         return stub_type(channel)
+
+class FakeResponse(object):
+    def __init__(self, response=None, exception=None):
+        self._response = response
+        self._exception = exception
+    def result(self):
+        if self._exception:
+            raise self._exception
+        return self._response
+    def exception(self):
+        return self._exception
+    def done(self):
+        return True
+
+class FutureMeta(type):
+    def __init__(cls, name, bases, dct):
+        futures = []
+        for name, ref in cls.__dict__.items():
+            if not name.startswith('_') and hasattr(ref, "__call__"):
+                futures.append(name)
+        for name in futures:
+            def _(request):
+                try:
+                    response = cls.__dict__[name](cls() ,request, None)
+                    return FakeResponse(response=response)
+                except Exception as e:
+                    return FakeResponse(exception=e)
+
+
+            cls.__dict__[name].future = lambda request: cls.__dict__[name](cls() ,request, None)
+        super().__init__(name, bases, dct)
+
+class MockService(object, metaclass=FutureMeta):
+    pass
+
